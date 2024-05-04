@@ -11,7 +11,7 @@ require('dotenv').config({
   require('./models/User');
   
   const corsOptions = {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    origin: process.env.CORS_ORIGIN || 'https://budget-application-m7296.ondigitalocean.app/',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -23,7 +23,7 @@ require('dotenv').config({
   const { getUserByUsername, addUser, updateBudget, getBudgetByUsername } = require('./dbHelpers');
   const { authenticateToken } = require('./auth');
   
-  const PORT = process.env.PORT || 443;
+  const PORT = process.env.PORT || 5001;
   
   app.post('/api/signup', async (req, res) => {
     const { username, password } = req.body;
