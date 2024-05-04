@@ -42,7 +42,7 @@ const Dashboard = () => {
 
     const fetchItems = useCallback(async () => {
         try {
-            const response = await fetch('http://final:3000', {
+            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/budget', {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
             if (!response.ok) {
@@ -80,7 +80,7 @@ const Dashboard = () => {
         setEditingIndex(-1);
 
         try {
-            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/', {
+            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/budget', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
