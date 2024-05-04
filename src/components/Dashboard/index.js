@@ -80,7 +80,7 @@ const Dashboard = () => {
         setEditingIndex(-1);
 
         try {
-            const response = await fetch('http://final:3000/api/budget', {
+            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
