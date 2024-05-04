@@ -12,7 +12,7 @@ function Homepage() {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('https://budget-application-zbnmx.ondigitalocean.app/', {
+            const response = await fetch('http://final:3000', {
                 method: 'POST',
                 headers: {
                     

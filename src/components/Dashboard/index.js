@@ -42,7 +42,7 @@ const Dashboard = () => {
 
     const fetchItems = useCallback(async () => {
         try {
-            const response = await fetch('https://localhost:5001', {
+            const response = await fetch('http://final:3000', {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             });
             if (!response.ok) {
@@ -80,7 +80,7 @@ const Dashboard = () => {
         setEditingIndex(-1);
 
         try {
-            const response = await fetch('http://localhost:5001/api/budget', {
+            const response = await fetch('http://final:3000/api/budget', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
