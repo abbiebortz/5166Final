@@ -118,6 +118,10 @@ const Dashboard = () => {
         responsive: true
     };
 
+    if (!isAuthenticated) {
+        return <div>You are not authenticated. Please <Link to="/">login</Link>.</div>;
+    }
+
     return (
         <div style={{ padding: '20px' }}>
             <h1>Dashboard Page</h1>
