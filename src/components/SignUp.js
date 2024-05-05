@@ -19,14 +19,13 @@ function SignUp() {
         });
 
             if (response.ok) {
-                alert('Account created successfully. Please log in.');  // Inform user to log in manually
-                navigate('/');  // Removed auto-redirect to login page
+                alert('Account created successfully. Please log in.');
+                navigate('/');
             } else {
                 const text = await response.text();  
                 alert('Failed to sign up: ' + text);
             }
         } catch (error) {
-            console.error('Fetch error:', error);
             alert('Failed to fetch. Check console for more details.');
         }
     };

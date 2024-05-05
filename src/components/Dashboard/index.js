@@ -23,8 +23,6 @@ const getRandomColor = () => {
     return `rgba(${r}, ${g}, ${b}, 0.2)`;
 };
 
-
-
 const Dashboard = () => {
     const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
@@ -38,7 +36,7 @@ const Dashboard = () => {
     const updateTotal = useCallback((items) => {
         const totalCost = items.reduce((acc, item) => acc + item.cost, 0);
         setTotal(totalCost);
-    }, [setTotal]); // Added useCallback and moved before its usage in useCallback below
+    }, [setTotal]);
 
     const fetchItems = useCallback(async () => {
         try {

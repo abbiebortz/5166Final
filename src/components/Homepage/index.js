@@ -5,7 +5,7 @@ import styles from './Homepage.module.css';
 
 function Homepage() {
     const navigate = useNavigate();
-    const { setAuthenticated, setToken } = useAuth();  // Ensure setToken is used here correctly
+    const { setAuthenticated, setToken } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -15,24 +15,23 @@ function Homepage() {
             const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/login', {
                 method: 'POST',
                 headers: {
-                    
                     'Content-Type': 'application/json'
                 },
-                
                 body: JSON.stringify({ username, password })
             });
 
             if (response.ok) {
                 const data = await response.json();
-                setAuthenticated(true, data.token);
-                setToken(data.token);  
+                setAuthenticated(true);
+                setToken(data.token);
                 navigate('/dashboard');
             } else {
                 alert('Failed to log in. Please check your username and password.');
             }
         } catch (error) {
-            console.error('Login failed:', error);
-            alert('An error occurred. Please try again later.');
+            alert('Unable to connect. Proceeding in offline mode.');
+            setAuthenticated(true);
+            navigate('/dashboard');
         }
     };
 
