@@ -10,26 +10,26 @@ function SignUp() {
     const handleSignUp = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/signup', {  
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password })
-        });
+            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password })
+            });
 
             if (response.ok) {
                 alert('Account created successfully. Please log in.');
                 navigate('/');
             } else {
-                const text = await response.text();  
+                const text = await response.text();
                 alert('Failed to sign up: ' + text);
             }
         } catch (error) {
             alert('Failed to fetch. Check console for more details.');
         }
     };
-    
+
     return (
         <div className={styles.signupContainer}>
             <h1>Sign Up</h1>

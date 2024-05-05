@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import styles from './Homepage.module.css';
 
 function Homepage() {
-    const navigate = useNavigate();
     const { setAuthenticated, setToken } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -24,20 +24,24 @@ function Homepage() {
                 const data = await response.json();
                 setAuthenticated(true);
                 setToken(data.token);
-                navigate('/dashboard');
+                setRedirectToDashboard(true);
             } else {
                 alert('Failed to log in. Please check your username and password.');
             }
         } catch (error) {
             alert('Unable to connect. Proceeding in offline mode.');
             setAuthenticated(true);
-            navigate('/dashboard');
+            setRedirectToDashboard(true);
         }
     };
 
     const goToSignUp = () => {
-        navigate('/signup');
+        setRedirectToDashboard(true);
     };
+
+    if (redirectToDashboard) {
+        return <Redirect to="/dashboard" />;
+    }
 
     return (
         <div className={styles.container}>

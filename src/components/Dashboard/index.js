@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  ArcElement,
-  Tooltip,
-  Legend
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    LineElement,
+    PointElement,
+    ArcElement,
+    Tooltip,
+    Legend
 );
 
 const getRandomColor = () => {
@@ -53,15 +52,11 @@ const Dashboard = () => {
             console.error('Fetch Error:', error);
             alert(`Failed to fetch items: ${error.message}`);
         }
-    }, [updateTotal]); 
+    }, [updateTotal]);
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/');
-        } else {
-            fetchItems();
-        }
-    }, [isAuthenticated, navigate, fetchItems]);
+        fetchItems();
+    }, [fetchItems]);
 
     const handleAddOrUpdateItem = async (e) => {
         e.preventDefault();
@@ -155,7 +150,7 @@ const Dashboard = () => {
                 
             )}
             <div>
-            <Link to="/">Logout</Link>
+                <Link to="/">Logout</Link>
             </div>
         </div>
     );
