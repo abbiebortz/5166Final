@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
 
 function SignUp() {
@@ -10,23 +10,13 @@ function SignUp() {
     const handleSignUp = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password })
-            });
-
-            if (response.ok) {
-                alert('Account created successfully. Please log in.');
-                navigate('/');
-            } else {
-                const text = await response.text();
-                alert('Failed to sign up: ' + text);
-            }
+            // Simulating successful sign-up
+            // Replace this with your actual sign-up logic
+            alert('Account created successfully. Please log in.');
+            navigate('/'); // Navigate to login page
         } catch (error) {
-            alert('Failed to fetch. Check console for more details.');
+            console.error('Sign Up Error:', error);
+            alert('Failed to sign up. Please try again.');
         }
     };
 
@@ -51,7 +41,7 @@ function SignUp() {
                 <button type="submit" className={styles.button}>Sign Up</button>
             </form>
             <p className={styles.loginLinkText}>
-                Already have an account? <Link to="/" className={styles.loginLink}>Log in here.</Link>
+                Already have an account? <a href="/" className={styles.loginLink}>Log in here.</a>
             </p>
         </div>
     );

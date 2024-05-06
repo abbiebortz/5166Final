@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
 
@@ -23,8 +22,6 @@ const getRandomColor = () => {
 };
 
 const Dashboard = () => {
-    const { isAuthenticated } = useAuth();
-    const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [newItemName, setNewItemName] = useState('');
     const [newItemCost, setNewItemCost] = useState('');
@@ -32,33 +29,12 @@ const Dashboard = () => {
     const [showCharts, setShowCharts] = useState(false);
     const [total, setTotal] = useState(0);
 
-    const updateTotal = useCallback((items) => {
+    const updateTotal = (items) => {
         const totalCost = items.reduce((acc, item) => acc + item.cost, 0);
         setTotal(totalCost);
-    }, [setTotal]);
+    };
 
-    const fetchItems = useCallback(async () => {
-        try {
-            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/budget', {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            });
-            if (!response.ok) {
-                throw new Error(`Failed to fetch items: ${response.status} ${response.statusText}`);
-            }
-            const data = await response.json();
-            setItems(data || []);
-            updateTotal(data || []);
-        } catch (error) {
-            console.error('Fetch Error:', error);
-            alert(`Failed to fetch items: ${error.message}`);
-        }
-    }, [updateTotal]);
-
-    useEffect(() => {
-        fetchItems();
-    }, [fetchItems]);
-
-    const handleAddOrUpdateItem = async (e) => {
+    const handleAddOrUpdateItem = (e) => {
         e.preventDefault();
         const updatedItems = [...items];
         if (editingIndex >= 0) {
@@ -71,24 +47,6 @@ const Dashboard = () => {
         setNewItemName('');
         setNewItemCost('');
         setEditingIndex(-1);
-
-        try {
-            const response = await fetch('https://budget-application-m7296.ondigitalocean.app/api/budget', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({ items: updatedItems })
-            });
-            if (!response.ok) {
-                throw new Error(`Failed to update budget: ${response.status} ${response.statusText}`);
-            }
-            console.log('Budget updated successfully');
-        } catch (error) {
-            console.error('Update Budget Error:', error);
-            alert(`Failed to update budget: ${error.message}`);
-        }
     };
 
     const handleEdit = (index) => {
@@ -117,10 +75,6 @@ const Dashboard = () => {
         maintainAspectRatio: false,
         responsive: true
     };
-
-    if (!isAuthenticated) {
-        return <div>You are not authenticated. Please <Link to="/">login</Link>.</div>;
-    }
 
     return (
         <div style={{ padding: '20px' }}>
@@ -161,3 +115,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
